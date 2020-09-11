@@ -36,15 +36,38 @@ app.whenReady().then(() => {
     captureSites()
     setInterval(() => {
         captureSites()
-    }, 10000)
+    }, 15000)
 })
 
-function captureSites() {
+async function captureSites() {
     console.log("screen captureing!");
-    const options = { overwrite: true }
-    captureWebsite.file('https://baidu.com', 'baidu.png', options);
-    captureWebsite.file('https://dev-lite.jjh9999.com/c/2280202757159426?type=stock', 'stock.png', options);
-    captureWebsite.file('https://dev-lite.jjh9999.com/c/2280202757159426?type=price', 'price.png', options);
+    const stockUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=stock'
+    const priceUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=price'
+    const optionsA = {
+        width    : 1568,
+        height   : 674,
+        timeout  : 15,
+        waitForElement: ".quote-td--item",
+        overwrite: true
+    };
+    const optionsB = {
+        width         : 1152,
+        height        : 784,
+        timeout       : 15,
+        waitForElement: ".quote-td--item",
+        overwrite     : true
+    };
+    const datetime = new Date().toISOString();
+    const suffixA = `${optionsA.width}x${optionsA.height}`;
+    const suffixB = `${optionsB.width}x${optionsB.height}`;
+    try {
+        await captureWebsite.file(stockUrl, `stock_${suffixA}.png`, optionsA);
+        await captureWebsite.file(stockUrl, `stock_${suffixB}.png`, optionsB);
+        await captureWebsite.file(priceUrl, `price_${suffixA}.png`, optionsA);
+        await captureWebsite.file(priceUrl, `price_${suffixB}.png`, optionsB);
+    } catch (e) {
+        console.error(e.message)
+    }
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
