@@ -1,0 +1,18 @@
+body {
+    font-size: 16px;
+}
+.mainBox {
+    margin-left: 15px;
+}
+.label {
+    width: 30px;
+    text-align: right;
+}
+.content {
+    margin-left: 20px;
+}
+
+.runhint {
+    font-size: 13px;
+    color: red;
+}

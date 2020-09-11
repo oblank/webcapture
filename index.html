@@ -5,13 +5,32 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <title>网页抓取工具-OB</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <h1>网页抓取工具 <span class="runhint">运行中，请勿关闭</span></h1>
+
+    <div class="mainBox">
+      <h4>抓取地址：</h4>
+      <div class="content">
+        <div><span class="label">贵金属：</span><span type="text" size="60" disable>https://dev-lite.jjh9999.com/c/2280202757159426?type=stock</span></div>
+        <div><span class="label">股   票：</span><span type="text" size="60" disable>https://dev-lite.jjh9999.com/c/2280202757159426?type=price</span></div>
+      </div>
+
+      <h4>图片大小与文件：</h4>
+      <div class="content">
+        <div>北面屏：1568x674</div>
+        <div>南面屏：1152x784</div>
+      </div>
+
+      <h4>图片保存地址</h4>
+        <div class="content">xxxx</div>
+
+      <h4>图片更新频率</h4>
+      <div class="content">每10秒更新一次</div>
+
+    </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
