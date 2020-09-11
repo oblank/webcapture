@@ -76,7 +76,7 @@ async function captureSites() {
     const suffixA = `${optionsA.width}x${optionsA.height}`;
     const suffixB = `${optionsB.width}x${optionsB.height}`;
 
-    const appPath = path.dirname (app.getPath ('exe'));
+    const appPath = process.env.PORTABLE_EXECUTABLE_DIR || path.dirname (app.getPath ('exe'));
 
     try {
         await captureWebsite.file(stockUrl, `${appPath}/images/stock_${suffixA}.png`, optionsA);
