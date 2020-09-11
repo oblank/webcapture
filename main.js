@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, dialog, nativeImage } = require('electron')
 const path = require('path')
 const captureWebsite = require('capture-website');
 
@@ -8,6 +8,7 @@ function createWindow() {
     const mainWindow = new BrowserWindow({
         width         : 700,
         height        : 550,
+        resizable     : false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -16,8 +17,23 @@ function createWindow() {
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
 
+    // 禁止关闭应用
+    mainWindow.on('close', function (event) {
+        dialog.showMessageBox({
+            type: "info",
+            title: "提示",
+            message: "关闭应用将导致报价图片得不到更新",
+            buttons: ["取消"],
+            cancelId: 1
+        }, function (index) {
+            event.preventDefault()
+        });
+        event.preventDefault()
+    })
+
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
+
 }
 
 // This method will be called when Electron has finished
@@ -44,11 +60,11 @@ async function captureSites() {
     const stockUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=stock'
     const priceUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=price'
     const optionsA = {
-        width    : 1568,
-        height   : 674,
-        timeout  : 15,
+        width         : 1568,
+        height        : 674,
+        timeout       : 15,
         waitForElement: ".quote-td--item",
-        overwrite: true
+        overwrite     : true
     };
     const optionsB = {
         width         : 1152,
