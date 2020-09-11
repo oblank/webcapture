@@ -3,6 +3,10 @@ const { app, BrowserWindow, dialog, nativeImage } = require('electron')
 const path = require('path')
 const captureWebsite = require('capture-website');
 
+const appPath = app.getPath('desktop');
+const execPath = path.dirname(app.getPath('exe'));
+console.log(appPath)
+
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
@@ -10,8 +14,10 @@ function createWindow() {
         height        : 550,
         resizable     : false,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
-        }
+            preload           : path.join(__dirname, 'preload.js'),
+            nodeIntegration   : true,
+            enableRemoteModule: true
+        },
     })
 
     // and load the index.html of the app.
@@ -20,10 +26,10 @@ function createWindow() {
     // 禁止关闭应用
     mainWindow.on('close', function (event) {
         dialog.showMessageBox({
-            type: "info",
-            title: "提示",
-            message: "关闭应用将导致报价图片得不到更新",
-            buttons: ["取消"],
+            type    : "info",
+            title   : "提示",
+            message : "关闭应用将导致报价图片得不到更新",
+            buttons : ["取消"],
             cancelId: 1
         }, function (index) {
             event.preventDefault()
@@ -76,13 +82,18 @@ async function captureSites() {
     const suffixA = `${optionsA.width}x${optionsA.height}`;
     const suffixB = `${optionsB.width}x${optionsB.height}`;
 
-    const appPath = process.env.PORTABLE_EXECUTABLE_DIR || path.dirname (app.getPath ('exe'));
+    global.sharedObject = {
+        appPath : appPath,
+        execPath: execPath,
+        stockUrl: `${appPath}/stock_${suffixA}.png`,
+        priceUrl: `${appPath}/price_${suffixA}.png`
+    };
 
     try {
-        await captureWebsite.file(stockUrl, `${appPath}/images/stock_${suffixA}.png`, optionsA);
-        await captureWebsite.file(stockUrl, `${appPath}/images/stock_${suffixB}.png`, optionsB);
-        await captureWebsite.file(priceUrl, `${appPath}/images/price_${suffixA}.png`, optionsA);
-        await captureWebsite.file(priceUrl, `${appPath}/images/price_${suffixB}.png`, optionsB);
+        await captureWebsite.file(stockUrl, `${appPath}/stock_${suffixA}.png`, optionsA);
+        await captureWebsite.file(stockUrl, `${appPath}/stock_${suffixB}.png`, optionsB);
+        await captureWebsite.file(priceUrl, `${appPath}/price_${suffixA}.png`, optionsA);
+        await captureWebsite.file(priceUrl, `${appPath}/price_${suffixB}.png`, optionsB);
     } catch (e) {
         console.error(e.message)
     }
