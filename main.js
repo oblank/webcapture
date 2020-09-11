@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, dialog, nativeImage } = require('electron')
+const {app, BrowserWindow, dialog, Tray, Menu} = require('electron')
 const path = require('path')
 const captureWebsite = require('capture-website');
 const log = require("electron-log");
@@ -13,50 +13,45 @@ console.log(appPath)
 function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width         : 700,
-        height        : 550,
-        resizable     : false,
+        width: 700,
+        height: 550,
+        resizable: false,
         webPreferences: {
-            preload           : path.join(__dirname, 'preload.js'),
-            nodeIntegration   : true,
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true,
             enableRemoteModule: true
         },
     })
+    global.mainId = mainWindow.id;
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
 
     // 禁止关闭应用
     mainWindow.on('close', function (event) {
-        // dialog.showMessageBox({
-        //     type    : "info",
-        //     title   : "提示",
-        //     message : "关闭应用将导致报价图片得不到更新",
-        //     buttons : ["取消"],
-        //     cancelId: 1
-        // }, function (index) {
-        //     event.preventDefault()
-        // });
-        // event.preventDefault()
+        mainWindow.hide();
+        mainWindow.setSkipTaskbar(true);
+        event.preventDefault();
 
-        app.quit()
+        // app.quit()
     })
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-    createWindow()
+    createWindow();
 
     app.on('activate', function () {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
+    createTray();
 
     // 10s 抓取一次
     captureSites()
@@ -65,26 +60,49 @@ app.whenReady().then(() => {
     }, 10000)
 })
 
+let tray = null
+function createTray() {
+    const mainWindow = BrowserWindow.fromId(global.mainId);
+    tray = new Tray(path.join(__dirname, "./electron.ico"));
+    const contextMenu = Menu.buildFromTemplate([{
+        label: '退出', click: function () {
+            mainWindow.destroy();
+            app.quit();
+        }
+    },])
+    tray.setToolTip('报价大屏网页抓取工具')
+    tray.setContextMenu(contextMenu)
+    tray.on('click', () => {
+        if (mainWindow.isVisible()) {
+            mainWindow.hide();
+            mainWindow.setSkipTaskbar(false);
+        } else {
+            mainWindow.show();
+            mainWindow.setSkipTaskbar(true);
+        }
+    })
+}
+
 async function captureSites() {
     console.log("screen captureing!");
     const stockUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=stock'
     const priceUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=price'
     const optionsA = {
-        width         : 1568,
-        height        : 674,
-        timeout       : 15,
+        width: 1568,
+        height: 674,
+        timeout: 15,
         waitForElement: ".quote-td--item",
-        overwrite     : true,
+        overwrite: true,
         launchOptions: {
             executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
         }
     };
     const optionsB = {
-        width         : 1152,
-        height        : 784,
-        timeout       : 15,
+        width: 1152,
+        height: 784,
+        timeout: 15,
         waitForElement: ".quote-td--item",
-        overwrite     : true,
+        overwrite: true,
         launchOptions: {
             executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
         }
@@ -94,15 +112,13 @@ async function captureSites() {
     const suffixB = `${optionsB.width}x${optionsB.height}`;
 
     global.sharedObject = {
-        appPath : appPath,
+        appPath: appPath,
         execPath: execPath,
         stockUrl: `${execPath}${path.sep}stock_${suffixA}.png`,
         priceUrl: `${execPath}${path.sep}price_${suffixA}.png`,
         datetime: new Date().toISOString()
     };
     log.warn(appPath, execPath)
-    console.log(execPath)
-
     try {
         await captureWebsite.file(stockUrl, `${execPath}${path.sep}stock_${suffixA}.png`, optionsA);
         await captureWebsite.file(stockUrl, `${execPath}${path.sep}stock_${suffixB}.png`, optionsB);

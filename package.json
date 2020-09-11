@@ -1,9 +1,9 @@
 {
   "name": "webcapture",
-  "productName": "trans",
+  "productName": "报价大屏转图片",
   "author": "GitHub",
   "version": "1.0.0",
-  "description": "trans",
+  "description": "将报价大屏转换为图片",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
