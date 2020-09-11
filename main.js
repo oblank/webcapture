@@ -2,6 +2,9 @@
 const { app, BrowserWindow, dialog, nativeImage } = require('electron')
 const path = require('path')
 const captureWebsite = require('capture-website');
+const log = require("electron-log");
+log.transports.console.level = 'silly';
+log.transports.console.level = false;
 
 const appPath = app.getPath('desktop');
 const execPath = path.dirname(app.getPath('exe'));
@@ -25,16 +28,18 @@ function createWindow() {
 
     // 禁止关闭应用
     mainWindow.on('close', function (event) {
-        dialog.showMessageBox({
-            type    : "info",
-            title   : "提示",
-            message : "关闭应用将导致报价图片得不到更新",
-            buttons : ["取消"],
-            cancelId: 1
-        }, function (index) {
-            event.preventDefault()
-        });
-        event.preventDefault()
+        // dialog.showMessageBox({
+        //     type    : "info",
+        //     title   : "提示",
+        //     message : "关闭应用将导致报价图片得不到更新",
+        //     buttons : ["取消"],
+        //     cancelId: 1
+        // }, function (index) {
+        //     event.preventDefault()
+        // });
+        // event.preventDefault()
+
+        app.quit()
     })
 
     // Open the DevTools.
@@ -69,14 +74,20 @@ async function captureSites() {
         height        : 674,
         timeout       : 15,
         waitForElement: ".quote-td--item",
-        overwrite     : true
+        overwrite     : true,
+        launchOptions: {
+            executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+        }
     };
     const optionsB = {
         width         : 1152,
         height        : 784,
         timeout       : 15,
         waitForElement: ".quote-td--item",
-        overwrite     : true
+        overwrite     : true,
+        launchOptions: {
+            executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+        }
     };
     const datetime = new Date().toISOString();
     const suffixA = `${optionsA.width}x${optionsA.height}`;
@@ -86,8 +97,11 @@ async function captureSites() {
         appPath : appPath,
         execPath: execPath,
         stockUrl: `${execPath}${path.sep}stock_${suffixA}.png`,
-        priceUrl: `${execPath}${path.sep}price_${suffixA}.png`
+        priceUrl: `${execPath}${path.sep}price_${suffixA}.png`,
+        datetime: new Date().toISOString()
     };
+    log.warn(appPath, execPath)
+    console.log(execPath)
 
     try {
         await captureWebsite.file(stockUrl, `${execPath}${path.sep}stock_${suffixA}.png`, optionsA);
@@ -95,7 +109,8 @@ async function captureSites() {
         await captureWebsite.file(priceUrl, `${execPath}${path.sep}price_${suffixA}.png`, optionsA);
         await captureWebsite.file(priceUrl, `${execPath}${path.sep}price_${suffixB}.png`, optionsB);
     } catch (e) {
-        console.error(e.message)
+        console.error(e)
+        log.error(e)
     }
 }
 
