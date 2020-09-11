@@ -1,5 +1,5 @@
 body {
-    font-size: 16px;
+    font-size: 14px;
 }
 .mainBox {
     margin-left: 15px;
@@ -15,4 +15,27 @@ body {
 .runhint {
     font-size: 13px;
     color: red;
+}
+
+h4 {
+    color: #333333;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+}
+
+img {
+    border: 1px solid gray;
+}
+
+.imgbox-left {
+    width: 50%;
+}
+
+.imgbox-right {
+    margin-top: 20px;
 }
