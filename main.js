@@ -85,15 +85,15 @@ async function captureSites() {
     global.sharedObject = {
         appPath : appPath,
         execPath: execPath,
-        stockUrl: `${appPath}/stock_${suffixA}.png`,
-        priceUrl: `${appPath}/price_${suffixA}.png`
+        stockUrl: `${execPath}${path.delimiter}stock_${suffixA}.png`,
+        priceUrl: `${execPath}${path.delimiter}price_${suffixA}.png`
     };
 
     try {
-        await captureWebsite.file(stockUrl, `${appPath}/stock_${suffixA}.png`, optionsA);
-        await captureWebsite.file(stockUrl, `${appPath}/stock_${suffixB}.png`, optionsB);
-        await captureWebsite.file(priceUrl, `${appPath}/price_${suffixA}.png`, optionsA);
-        await captureWebsite.file(priceUrl, `${appPath}/price_${suffixB}.png`, optionsB);
+        await captureWebsite.file(stockUrl, `${execPath}${path.delimiter}stock_${suffixA}.png`, optionsA);
+        await captureWebsite.file(stockUrl, `${execPath}${path.delimiter}stock_${suffixB}.png`, optionsB);
+        await captureWebsite.file(priceUrl, `${execPath}${path.delimiter}price_${suffixA}.png`, optionsA);
+        await captureWebsite.file(priceUrl, `${execPath}${path.delimiter}price_${suffixB}.png`, optionsB);
     } catch (e) {
         console.error(e.message)
     }
