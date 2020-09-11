@@ -8,7 +8,14 @@
   "scripts": {
     "start": "electron .",
     "package": "electron-packager ./ webcapture --out ./OutApp --app-version 1.0.0 --overwrite",
-    "packageWindows": "electron-packager ./ webcapture --win --out ./OutApp --arch=x64 --app-version 1.0.0 --overwrite"
+    "packageWindows": "electron-packager ./ webcapture --win --out ./OutApp --arch=x64 --app-version 1.0.0 --overwrite",
+    "pwin": "electron-builder --win --dir --x64"
+  },
+  "build": {
+    "appId": "com.oblank",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -21,6 +28,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^10.1.1",
+    "electron-builder": "^22.8.0",
     "electron-packager": "^15.1.0"
   },
   "dependencies": {
