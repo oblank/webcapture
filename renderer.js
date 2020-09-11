@@ -18,11 +18,12 @@ function refresh(node) {
         console.log(node.src)
         setTimeout(startRefresh, times);
     })();
-
 }
 
 window.onload = function () {
-    var node = document.getElementById('img');
-    refresh(node);
+    const node1 = document.getElementById('img1');
+    refresh(node1);
+    const node2 = document.getElementById('img2');
+    refresh(node2);
     // you can refresh as many images you want just repeat above steps
 }

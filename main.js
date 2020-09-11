@@ -36,7 +36,7 @@ app.whenReady().then(() => {
     captureSites()
     setInterval(() => {
         captureSites()
-    }, 15000)
+    }, 10000)
 })
 
 async function captureSites() {

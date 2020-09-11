@@ -9,13 +9,13 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
   <body>
-    <h1>报价大屏网页抓取工具 <span class="runhint">运行中，请勿关闭</span></h1>
+    <h1>报价大屏网页抓取工具 <img src="loading.gif" height="30px" border="0"></h1>
 
     <div class="mainBox">
-      <h4>抓取地址：</h4>
+      <h4>大屏地址：</h4>
       <div class="content">
         <div><span class="label">贵金属：</span><span type="text" size="60" disable>https://lite.jjh9999.com/c/2281362146558722?type=price</span></div>
-        <div><span class="label">股   票：</span><span type="text" size="60" disable>https://lite.jjh9999.com/c/2281362146558722?type=stock</span></div>
+        <div><span class="label">股&nbsp;&nbsp;&nbsp;&nbsp;票：</span><span type="text" size="60" disable>https://lite.jjh9999.com/c/2281362146558722?type=stock</span></div>
       </div>
 
       <div class="flexbox">
@@ -27,18 +27,18 @@
             <div>南面屏：1152x784</div>
           </div>
 
-          <h4>图片保存地址</h4>
-          <div class="content">xxxx</div>
-
           <h4>图片更新频率</h4>
           <div class="content">每10秒更新一次</div>
+          <br/>
+          <div class="content"><img src="loading.gif" height="80px" border="0"></div>
+          <div class="runhint">重要：运行中，请勿关闭软件，否则报价得不到更新。</div>
         </div>
 
         <div class="imgbox-right">
-          <div style="font-size: 12px; text-align: center;">图片示意</div>
-          <img src="./price_1568x674.png" width="313.6" height="134.8">
+          <div style="font-size: 12px; text-align: center;">最新图片</div>
+          <img id="img1" src="./price_1568x674.png" width="313.6" height="134.8">
           <br/>
-          <img src="./stock_1568x674.png" width="313.6" height="134.8">
+          <img id="img2" src="./stock_1568x674.png" width="313.6" height="134.8">
         </div>
       </div>
 
