@@ -32,8 +32,7 @@ function createWindow() {
     })
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
-
+    mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -76,11 +75,14 @@ async function captureSites() {
     const datetime = new Date().toISOString();
     const suffixA = `${optionsA.width}x${optionsA.height}`;
     const suffixB = `${optionsB.width}x${optionsB.height}`;
+
+    const appPath = app.getAppPath();
+
     try {
-        await captureWebsite.file(stockUrl, `stock_${suffixA}.png`, optionsA);
-        await captureWebsite.file(stockUrl, `stock_${suffixB}.png`, optionsB);
-        await captureWebsite.file(priceUrl, `price_${suffixA}.png`, optionsA);
-        await captureWebsite.file(priceUrl, `price_${suffixB}.png`, optionsB);
+        await captureWebsite.file(stockUrl, `${appPath}/images/stock_${suffixA}.png`, optionsA);
+        await captureWebsite.file(stockUrl, `${appPath}/images/stock_${suffixB}.png`, optionsB);
+        await captureWebsite.file(priceUrl, `${appPath}/images/price_${suffixA}.png`, optionsA);
+        await captureWebsite.file(priceUrl, `${appPath}/images/price_${suffixB}.png`, optionsB);
     } catch (e) {
         console.error(e.message)
     }
