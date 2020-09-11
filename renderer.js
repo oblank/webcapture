@@ -7,7 +7,7 @@
 const { remote } = require('electron');
 
 function refresh(node) {
-    var times = 3000; // gap in Milli Seconds;
+    var times = 1000; // gap in Milli Seconds;
 
     (function startRefresh() {
         var address;

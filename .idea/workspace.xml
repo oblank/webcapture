@@ -20,10 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bd9c42a-1ad6-4ba0-a7f9-25fab6697b70" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/electron.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renderer.js" beforeDir="false" afterPath="$PROJECT_DIR$/renderer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +59,7 @@
       <workItem from="1599834371363" duration="192000" />
       <workItem from="1599834607045" duration="565000" />
       <workItem from="1599835185773" duration="2073000" />
-      <workItem from="1599837388094" duration="6905000" />
+      <workItem from="1599837388094" duration="7200000" />
     </task>
     <servers />
   </component>
