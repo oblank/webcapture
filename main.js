@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, dialog, Tray, Menu} = require('electron')
 const path = require('path')
+const fs = require('fs');
 const captureWebsite = require('capture-website');
 const log = require("electron-log");
 log.transports.console.level = 'silly';
@@ -83,10 +84,19 @@ function createTray() {
     })
 }
 
+const stockUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=stock'
+const priceUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=price'
+const chromePath = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+const edge = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
 async function captureSites() {
     console.log("screen captureing!");
-    const stockUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=stock'
-    const priceUrl = 'https://lite.jjh9999.com/c/2281362146558722?type=price'
+    let executablePath = chromePath
+    if (fs.existsSync(chromePath)) {
+        executablePath = chromePath
+    }
+    else if (fs.existsSync(edge)) {
+        executablePath = edge
+    }
     const optionsA = {
         width: 1568,
         height: 674,
@@ -94,7 +104,7 @@ async function captureSites() {
         waitForElement: ".quote-td--item",
         overwrite: true,
         launchOptions: {
-            executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+            executablePath: executablePath,
         }
     };
     const optionsB = {
@@ -104,7 +114,7 @@ async function captureSites() {
         waitForElement: ".quote-td--item",
         overwrite: true,
         launchOptions: {
-            executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+            executablePath: executablePath,
         }
     };
     const datetime = new Date().toISOString();
@@ -114,6 +124,7 @@ async function captureSites() {
     global.sharedObject = {
         appPath: appPath,
         execPath: execPath,
+        executablePath: executablePath,
         stockUrl: `${execPath}${path.sep}stock_${suffixA}.png`,
         priceUrl: `${execPath}${path.sep}price_${suffixA}.png`,
         datetime: new Date().toISOString()

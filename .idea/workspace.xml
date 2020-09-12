@@ -20,7 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bd9c42a-1ad6-4ba0-a7f9-25fab6697b70" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/renderer.js" beforeDir="false" afterPath="$PROJECT_DIR$/renderer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +61,9 @@
       <workItem from="1599834371363" duration="192000" />
       <workItem from="1599834607045" duration="565000" />
       <workItem from="1599835185773" duration="2073000" />
-      <workItem from="1599837388094" duration="7200000" />
+      <workItem from="1599837388094" duration="9009000" />
+      <workItem from="1599886820043" duration="329000" />
+      <workItem from="1599887730483" duration="847000" />
     </task>
     <servers />
   </component>
@@ -86,6 +90,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1213" y="447" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599840674851">
@@ -96,5 +101,9 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="977" y="102" width="1588" height="1200" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1599842461138" />
+    <state x="1551" y="424" key="RollbackChangesDialog" timestamp="1599846118345">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1551" y="424" key="RollbackChangesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1599846118345" />
   </component>
 </project>
