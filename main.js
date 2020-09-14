@@ -131,14 +131,43 @@ async function captureSites() {
     };
     log.warn(appPath, execPath)
     try {
-        await captureWebsite.file(stockUrl, `${execPath}${path.sep}stock_${suffixA}.png`, optionsA);
+        let realPath = `${execPath}${path.sep}stock_${suffixA}.png`;
+        let tmpPath = `tmp_${realPath}`;
+        await captureWebsite.file(stockUrl, realPath, optionsA);
+        mvFile(tmpPath, realPath);
+
+        realPath = `${execPath}${path.sep}stock_${suffixB}.png`;
+        tmpPath = `tmp_${realPath}`;
         await captureWebsite.file(stockUrl, `${execPath}${path.sep}stock_${suffixB}.png`, optionsB);
+        mvFile(tmpPath, realPath);
+
+        realPath = `${execPath}${path.sep}price_${suffixA}.png`;
+        tmpPath = `tmp_${realPath}`;
         await captureWebsite.file(priceUrl, `${execPath}${path.sep}price_${suffixA}.png`, optionsA);
+        mvFile(tmpPath, realPath);
+
+        realPath = `${execPath}${path.sep}price_${suffixB}.png`;
+        tmpPath = `tmp_${realPath}`;
         await captureWebsite.file(priceUrl, `${execPath}${path.sep}price_${suffixB}.png`, optionsB);
+        mvFile(tmpPath, realPath);
     } catch (e) {
-        console.error(e)
+        console.error(e);
         log.error(e)
     }
+}
+
+// 重命名
+function mvFile(sourceFile, destPath) {
+    fs.rename(sourceFile, destPath, function (err) {
+        if (err) {
+            log.error(err)
+        }
+        fs.stat(destPath, function (err, stats) {
+            if (err) {
+                log.error(err)
+            }
+        });
+    });
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
