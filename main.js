@@ -100,6 +100,7 @@ async function captureSites() {
     const optionsA = {
         width: 1568,
         height: 674,
+        type: 'jpeg',
         timeout: 15,
         waitForElement: ".quote-td--item",
         overwrite: true,
@@ -110,6 +111,7 @@ async function captureSites() {
     const optionsB = {
         width: 1152,
         height: 784,
+        type: 'jpeg',
         timeout: 15,
         waitForElement: ".quote-td--item",
         overwrite: true,
@@ -125,30 +127,30 @@ async function captureSites() {
         appPath: appPath,
         execPath: execPath,
         executablePath: executablePath,
-        stockUrl: `${execPath}${path.sep}stock_${suffixA}.png`,
-        priceUrl: `${execPath}${path.sep}price_${suffixA}.png`,
+        stockUrl: `${execPath}${path.sep}stock_${suffixA}.jpeg`,
+        priceUrl: `${execPath}${path.sep}price_${suffixA}.jpeg`,
         datetime: new Date().toISOString()
     };
     log.warn(appPath, execPath)
     try {
-        let realPath = `${execPath}${path.sep}stock_${suffixA}.png`;
-        let tmpPath = `tmp_${realPath}`;
-        await captureWebsite.file(stockUrl, realPath, optionsA);
+        let realPath = `${execPath}${path.sep}stock_${suffixA}.jpeg`;
+        let tmpPath = `${execPath}${path.sep}tmp_stock_${suffixA}.jpeg`;
+        await captureWebsite.file(stockUrl, tmpPath, optionsA);
         mvFile(tmpPath, realPath);
 
-        realPath = `${execPath}${path.sep}stock_${suffixB}.png`;
-        tmpPath = `tmp_${realPath}`;
-        await captureWebsite.file(stockUrl, `${execPath}${path.sep}stock_${suffixB}.png`, optionsB);
+        realPath = `${execPath}${path.sep}stock_${suffixB}.jpeg`;
+        tmpPath = `${execPath}${path.sep}tmp_stock_${suffixB}.jpeg`;
+        await captureWebsite.file(stockUrl, tmpPath, optionsB);
         mvFile(tmpPath, realPath);
 
-        realPath = `${execPath}${path.sep}price_${suffixA}.png`;
-        tmpPath = `tmp_${realPath}`;
-        await captureWebsite.file(priceUrl, `${execPath}${path.sep}price_${suffixA}.png`, optionsA);
+        realPath = `${execPath}${path.sep}price_${suffixA}.jpeg`;
+        tmpPath = `${execPath}${path.sep}tmp_price_${suffixA}.jpeg`;
+        await captureWebsite.file(priceUrl, tmpPath, optionsA);
         mvFile(tmpPath, realPath);
 
-        realPath = `${execPath}${path.sep}price_${suffixB}.png`;
-        tmpPath = `tmp_${realPath}`;
-        await captureWebsite.file(priceUrl, `${execPath}${path.sep}price_${suffixB}.png`, optionsB);
+        realPath = `${execPath}${path.sep}price_${suffixB}.jpeg`;
+        tmpPath = `${execPath}${path.sep}tmp_price_${suffixB}.jpeg`;
+        await captureWebsite.file(priceUrl, tmpPath, optionsB);
         mvFile(tmpPath, realPath);
     } catch (e) {
         console.error(e);
